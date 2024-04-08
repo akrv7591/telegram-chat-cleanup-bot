@@ -17,13 +17,13 @@ bot.on('message', (msg) => {
         console.log(`TRYING TO DELETE ${msg}`)
         bot.deleteMessage(msg.chat.id, msg.message_id)
           .catch(e => console.error(e))
-          .then(value => console.log(value))
+          .then(() => console.log("MESSAGE DELETED"))
     }
 
     if(BLOCKED_MESSAGES.includes(msg.text?.slice(0,10))) {
       bot.deleteMessage(msg.chat.id,  msg.message_id)
-        .catch(e => console.error(e))
-        .then(value => console.log(value))
+        .catch(e => console.error("MESSAGE NOT DELETED", e))
+        .then(() => console.log("MESSAGE DELETED"))
     }
 });
 
