@@ -1,8 +1,8 @@
-
 const TelegramBot = require('node-telegram-bot-api');
 
 // Replace 'YOUR_BOT_TOKEN' with the token you obtained from BotFather
 const TOKEN = process.env['TELEGRAM_BOT_TOKEN']
+const BLOCKED_MESSAGES = process.env['BLOCKED_MESSAGES']
 
 if (!TOKEN) {
   console.error('No token provided');
@@ -18,6 +18,12 @@ bot.on('message', (msg) => {
         bot.deleteMessage(msg.chat.id, msg.message_id)
           .catch(e => console.error(e))
           .then(value => console.log(value))
+    }
+
+    if(BLOCKED_MESSAGES.includes(msg.text?.slice(0,10))) {
+      bot.deleteMessage(msg.chat.id,  msg.message_id)
+        .catch(e => console.error(e))
+        .then(value => console.log(value))
     }
 });
 
